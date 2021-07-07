@@ -1,0 +1,26 @@
+api:
+  protocol: https
+  server: qa-staging.spearline.com
+  api_path: /admin/api/
+  token_path: /admin/api/user/token/
+  user_email: qa.service@spearline.com
+  user_pass: T3STp4ss!
+  error_mode: production
+ 
+mailgun:
+    to_email: vlad.banyai@spearline.com,adrian.ghita@spearline.com
+ 
+platform:
+  url: https://qa-staging.spearline.com
+  user_email: qa.service@spearline.com
+  user_pass: T3STp4ss!
+  manual_online_extention: /admin/user/register
+
+qa_database:
+  db_host: spearlinedb-qa.spearline.com 
+  db_user: sp_webuser
+  db_pass: PEvWs69SdPKM9pxP
+  database: spearlinedb
+
+download_location:
+  temp_dir: '/tmp/'
