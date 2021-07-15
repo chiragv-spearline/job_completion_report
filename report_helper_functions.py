@@ -152,6 +152,6 @@ def generate_report(campaign, job_id):
         os.system('echo %s|sudo -S %s' % (data.sudo_password, file_remove_command))
     # Execute job_report docker container to create job completion report
     os.chdir(os.getcwd() + "/../")
-    docker_cmd = 'docker run --rm  -v ' + os.getcwd() + '/csv:/csv:Z --env-file=spearline-env.txt job_completion python job_report.py qatest ' + str(job_id)
+    docker_cmd = 'docker run --rm  -v ' + os.getcwd() + '/csv:/csv:Z --env-file=spearline-env.txt campaign_job_completion python job_report.py qatest ' + str(job_id)
     print(docker_cmd)
     os.system(docker_cmd)
