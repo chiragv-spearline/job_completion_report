@@ -17,6 +17,7 @@ single_line_test_type_id = 40
 in_country_test_type_id = 4
 agent_connection_test_type_id = 55
 sip_trunk_test_type_id = 63
+conference_longcall_test_type_id = 11
 
 # Numbers for generating campaign job schedule report
 pstn_conf_qual_numbers = {
@@ -51,6 +52,6 @@ single_line_testtype_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'N
 in_country_testtype_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
 agent_connection_testtype_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Received DTMF', 'Agent Confirmation Time', 'State', 'Score', 'Recording']
 sip_trunk_testtype_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
-
+conference_longcall_testtype_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording', 'Phonegroup', 'Region', 'Moderator Passcode', 'Participant Passcode', 'Bridge']
 
 
