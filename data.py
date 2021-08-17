@@ -23,6 +23,7 @@ international_conference_test_type_id = 18
 outbound_conference_test_type_id = 23
 linktest_test_type_id = 24
 conference_with_provider_test_type_id = 45
+conference_with_fixed_ivr_test_type_id = 46
 
 # Numbers for generating campaign job schedule report
 pstn_conf_qual_numbers = {
@@ -63,3 +64,4 @@ international_conference_testtype_report_headers = ['ID', 'Number', 'Campaign', 
 outbound_conference_testtype_report_headers = []
 linktest_testtype_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording', 'Phonegroup', 'Region', 'Moderator Passcode', 'Participant Passcode', 'Bridge']
 conference_with_provider_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
+conference_with_fixed_ivr_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
