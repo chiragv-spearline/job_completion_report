@@ -3,6 +3,7 @@ import glob
 import yaml
 import json
 import requests
+import random
 import mysql.connector
 import data as data
 import report_helper_functions as rh
@@ -18,41 +19,6 @@ password = cfg["api"]["user_pass"]
 api_path = cfg["api"]["api_path"]
 token_path = cfg["api"]["token_path"]
 api_url = protocol+'://'+server+api_path
-
-def get_token(token_path=token_path):
-    """ Get the authorization token needed to use other API functions.
-    """
-    url = protocol+"://"+server+token_path
-    body = {'email':email, 'password':password}
-    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
-    r = requests.post(url, data=json.dumps(body), headers=headers)
-    response = json.loads(r.text)
-    return response['data']['token']
-
-def delete_item(token, resource, item_id):
-    """Delete a specified item from the system. Must provide the resource and the item id.
-    """
-    headers = {'Accept': 'application/json', 'Authorization': 'Bearer '+token}
-    url=api_url+resource+'/'+str(item_id)
-    r = requests.delete(url, headers=headers)
-    response=json.loads(r.text)
-    return response
-
-def get_campaign_numbers_info(number):
-    """
-    """
-    campaign_numbers = []
-    campaign_number_details = []
-    for key in number:
-        number1 = {}
-        number1["number_id"] = str(number[key]["id"])
-        campaign_numbers.append(number1)
-        number2 = {}
-        number2["field"] = "number_id"
-        number2["operator"] = "="
-        number2["value"] = str(number[key]["id"])
-        campaign_number_details.append(number2)
-    return campaign_numbers, campaign_number_details
 
 def add_campaign(token, name=None, test_type_id=None, status=None,
             campaign_time_group_id=None, timezone_id=None, report_interval_id=None,
@@ -99,6 +65,15 @@ def add_campaign(token, name=None, test_type_id=None, status=None,
     requests.post(number_url, headers=headers, data=number_body)
     return response
 
+def delete_item(token, resource, item_id):
+    """Delete a specified item from the system. Must provide the resource and the item id.
+    """
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer '+token}
+    url=api_url+resource+'/'+str(item_id)
+    r = requests.delete(url, headers=headers)
+    response=json.loads(r.text)
+    return response
+
 def execute_db_query(query, val):
     """ Execute insert, update query to database
     """
@@ -132,6 +107,56 @@ def execute_select_db_query(query, table_name=None):
     elif len(query_result) == 1:
         return query_result[0]
     return query_result
+
+def get_token(token_path=token_path):
+    """ Get the authorization token needed to use other API functions.
+    """
+    url = protocol+"://"+server+token_path
+    body = {'email':email, 'password':password}
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    r = requests.post(url, data=json.dumps(body), headers=headers)
+    response = json.loads(r.text)
+    return response['data']['token']
+
+def get_campaign_numbers_info(number):
+    """ Prepare campaign number data in specific format 
+    """
+    campaign_numbers = []
+    campaign_number_details = []
+    for key in number:
+        number1 = {}
+        number1["number_id"] = str(number[key]["id"])
+        campaign_numbers.append(number1)
+        number2 = {}
+        number2["field"] = "number_id"
+        number2["operator"] = "="
+        number2["value"] = str(number[key]["id"])
+        campaign_number_details.append(number2)
+    return campaign_numbers, campaign_number_details
+
+def get_random_resource(token, resource):
+    """Get a random item id for a specific resource.
+    """
+    resources=list_resource(token, resource)
+    indices=[]
+    for el in resources["data"]:
+        #Prevent duplicates, just in case
+        if el["id"] not in indices:
+            indices.append(el["id"])
+    return random.choice(indices)
+
+def list_resource(token, resource, item_id=None):
+    """Query the api for the selected resource.
+    If no item_id is specified it will return all items for that resource.
+    """
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer '+token}
+    if item_id is not None:
+        url=api_url+resource+'/'+str(item_id)
+    else:
+        url=api_url+resource
+    r = requests.get(url, headers=headers)
+    response=json.loads(r.text)
+    return response
 
 def get_job_processing_table(test_type):
     """ Get Job Processing table according to given test type from database
