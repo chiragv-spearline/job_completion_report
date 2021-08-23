@@ -25,6 +25,8 @@ linktest_test_type_id = 24
 conference_with_provider_test_type_id = 45
 conference_with_fixed_ivr_test_type_id = 46
 webex_controlled_ddi_conference_test_type_id = 71
+area_connection_test_type_id = 67
+audio_latency_with_provider_test_type_id = 49
 
 # Numbers for generating campaign job schedule report
 pstn_conf_qual_numbers = {
@@ -67,3 +69,5 @@ linktest_testtype_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Numb
 conference_with_provider_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
 conference_with_fixed_ivr_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
 webex_controlled_ddi_conference_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
+area_connection_test_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'State', 'Score', 'Recording']
+audio_latency_with_provider_report_headers = ['']

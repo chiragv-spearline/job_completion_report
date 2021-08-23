@@ -60,6 +60,7 @@ def add_campaign(token, name=None, test_type_id=None, status=None,
     url=api_url+"campaign"
     r = requests.post(url, headers=headers, data=body)
     response=json.loads(r.text)
+    # print('===response===>>> ', response)
     number_body=json.dumps(numbers)
     number_url=api_url+"campaign/update_filters/"+str(response["data"]["id"])
     requests.post(number_url, headers=headers, data=number_body)
