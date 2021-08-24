@@ -75,6 +75,20 @@ def delete_item(token, resource, item_id):
     response=json.loads(r.text)
     return response
 
+def delete_job_processing_data(job_id, job_processing_table):
+    """ Delete all job processing data from respected tables
+    """
+    job_delete_query = "delete from job where id=" + str(job_id)
+    job_processing_delete_query = "delete from "+ job_processing_table +" where job_id=" + str(job_id)
+    database = mysql.connector.connect(host=cfg["qa_database"]["db_host"],
+    user=cfg["qa_database"]["db_user"], password=cfg["qa_database"]["db_pass"], database=cfg["qa_database"]["database"])
+    cursorObject = database.cursor()
+    cursorObject.execute(job_processing_delete_query)
+    cursorObject.execute(job_delete_query)
+    database.commit()
+    cursorObject.close()
+    database.close()
+
 def execute_db_query(query, val):
     """ Execute insert, update query to database
     """

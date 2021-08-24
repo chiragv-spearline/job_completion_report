@@ -92,6 +92,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_conferences_test_type.priority=1
     test_campaign_job_report_conferences_test_type.test_area="conferences_test_type"
@@ -165,6 +166,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_connection_test_type.priority=1
     test_campaign_job_report_connection_test_type.test_area="connection_test_type"
@@ -234,6 +236,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_audio_latency_test_type.priority=1
     test_campaign_job_report_audio_latency_test_type.test_area="audio_latency_test_type"
@@ -305,6 +308,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_conference_single_line_test_type.priority=1
     test_campaign_job_report_conference_single_line_test_type.test_area="conference_single_line_test_type"
@@ -376,6 +380,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_in_country_test_type.priority=1
     test_campaign_job_report_in_country_test_type.test_area="in_country_test_type"
@@ -448,6 +453,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_agent_connection_test_type.priority=1
     test_campaign_job_report_agent_connection_test_type.test_area="agent_connection_test_type"
@@ -519,6 +525,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_sip_trunk_test_type.priority=1
     test_campaign_job_report_sip_trunk_test_type.test_area="sip_trunk_test_type"
@@ -593,6 +600,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_conference_longcall_test_type.priority=1
     test_campaign_job_report_conference_longcall_test_type.test_area="conference_longcall_test_type"
@@ -664,6 +672,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_conference_with_tones_test_type.priority=1
     test_campaign_job_report_conference_with_tones_test_type.test_area="conference_with_tones_test_type"
@@ -735,6 +744,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_international_conference_test_type.priority=1
     test_campaign_job_report_international_conference_test_type.test_area="international_conference_test_type"
@@ -787,18 +797,6 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
                         elif count>1:
                             number_str = str(data.pstn_conf_qual_numbers["number%s" % str(count-1)]['number'])
                             self.assertTrue(len(row) == len(data.outbound_conference_testtype_report_headers), 'Data is not correct')
-                            self.assertTrue(row[1] == number_str, 'Incorrect number found: ' + row[1])
-                            self.assertTrue(row[2] == campaign_name, 'Incorrect campaign name found: ' + row[2])
-                            self.assertTrue(row[3] == data.pstn_conf_qual_numbers["number%s" % str(count-1)]['country'], 'Incorrect country found: ' + row[3])
-                            self.assertTrue(row[4] == data.pstn_conf_qual_numbers["number%s" % str(count-1)]['type'], 'Incorrect number-type found: ' + row[4])
-                            self.assertTrue(row[5] == number_str + '_customer', 'Incorrect customer found: ' + row[5])
-                            self.assertTrue(row[6] == number_str + '_department', 'Incorrect department found: ' + row[6])
-                            self.assertTrue(row[7] == number_str + '_location', 'Incorrect location found: ' + row[7])
-                            self.assertTrue(row[8] == number_str + '_carrier', 'Incorrect carrier found: ' + row[8])
-                            self.assertTrue(row[10] == data.ivr_spearline_prompt, 'Incorrect IVR found: ' + row[10])
-                            self.assertTrue(row[11] == str(call_start_time), 'Incorrect Start Time found: ' + row[11])
-                            self.assertTrue(row[12] == str(call_end_time), 'Incorrect Call End Time found: ' + row[12])
-                            self.assertTrue(row[13] == data.pstn_conf_qual_numbers["number%s" % str(count-1)]['desc_name'], 'Incorrect state found: ' + row[13])
             except FileNotFoundError as error:
                 print(error)
             finally:
@@ -806,6 +804,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_outbound_conference_test_type.priority=1
     test_campaign_job_report_outbound_conference_test_type.test_area="outbound_conference_test_type"
@@ -877,6 +876,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_linktest_test_type.priority=1
     test_campaign_job_report_linktest_test_type.test_area="linktest_test_type"
@@ -949,6 +949,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_conference_with_provider_test_type.priority=1
     test_campaign_job_report_conference_with_provider_test_type.test_area="conference_with_provider_test_type"
@@ -1020,6 +1021,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_conference_with_fixed_ivr_test_type.priority=1
     test_campaign_job_report_conference_with_fixed_ivr_test_type.test_area="conference_with_fixed_ivr_test_type"
@@ -1091,6 +1093,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_webex_controlled_ddi_conference_test_type.priority=1
     test_campaign_job_report_webex_controlled_ddi_conference_test_type.test_area="webex_controlled_ddi_conference_test_type"
@@ -1165,6 +1168,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_area_connection_test_type.priority=1
     test_campaign_job_report_area_connection_test_type.test_area="area_connection_test_type"
@@ -1239,6 +1243,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_audio_latency_with_provider_test_type.priority=1
     test_campaign_job_report_audio_latency_with_provider_test_type.test_area="audio_latency_with_provider_test_type"
@@ -1312,6 +1317,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_connection_for_5_sec_test_type.priority=1
     test_campaign_job_report_connection_for_5_sec_test_type.test_area="connection_for_5_sec_test_type"
@@ -1387,6 +1393,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_contact_center_polqa_test_type.priority=1
     test_campaign_job_report_contact_center_polqa_test_type.test_area="contact_center_polqa_test_type"
@@ -1462,6 +1469,7 @@ class test_campaign_job_report_conferences_test_type(unittest.TestCase):
         except Exception as error:
             print(error)
         finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_contact_center_polqa_single_segment_test_type.priority=1
     test_campaign_job_report_contact_center_polqa_single_segment_test_type.test_area="contact_center_polqa_single_segment_test_type"
