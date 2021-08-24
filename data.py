@@ -29,6 +29,7 @@ area_connection_test_type_id = 67
 audio_latency_with_provider_test_type_id = 49
 connection_for_5_sec_test_type_id = 52
 contact_center_polqa_test_type_id = 29
+contact_center_polqa_single_segment_test_type_id = 51
 
 # Numbers for generating campaign job schedule report
 pstn_conf_qual_numbers = {
@@ -75,3 +76,4 @@ area_connection_test_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'N
 audio_latency_with_provider_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'State', 'Score', 'Recording']
 connection_for_5_sec_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'State', 'Score', 'Recording']
 contact_center_polqa_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
+contact_center_polqa_single_segment_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
