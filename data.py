@@ -34,6 +34,7 @@ contact_center_google_test_type_id = 2
 dtmf_with_quality_test_type_id = 9
 dtmf_with_quality_different_prompt_test_type_id = 35
 dtmf_with_quality_and_cli_check_test_type_id = 34
+fax_test_type_id = 7
 
 # Numbers for generating campaign job schedule report
 pstn_conf_qual_numbers = {
@@ -81,3 +82,4 @@ audio_latency_with_provider_report_headers = ['ID', 'Number', 'Campaign', 'Count
 connection_for_5_sec_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'State', 'Score', 'Recording']
 contact_center_polqa_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
 dtmf_with_quality_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
+fax_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'State', 'Score', 'Recording']
