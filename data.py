@@ -35,6 +35,8 @@ dtmf_with_quality_test_type_id = 9
 dtmf_with_quality_different_prompt_test_type_id = 35
 dtmf_with_quality_and_cli_check_test_type_id = 34
 fax_test_type_id = 7
+in_country_outbound_latency_test_type_id = 77
+in_country_outbound_two_way_voice_assure_test_type_id = 74
 
 # Numbers for generating campaign job schedule report
 pstn_conf_qual_numbers = {
