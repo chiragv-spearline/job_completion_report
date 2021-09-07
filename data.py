@@ -39,6 +39,7 @@ in_country_outbound_latency_test_type_id = 77
 in_country_outbound_two_way_voice_assure_test_type_id = 74
 in_country_mobile_test_type_id = 38
 in_country_pstn_echo_test_with_quality_test_type_id = 36
+international_connection_test_type_id = 76
 
 # Numbers for generating campaign job schedule report
 pstn_conf_qual_numbers = {
@@ -82,8 +83,6 @@ conference_with_provider_report_headers = ['ID', 'Number', 'Campaign', 'Country'
 conference_with_fixed_ivr_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
 webex_controlled_ddi_conference_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
 area_connection_test_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'State', 'Score', 'Recording']
-audio_latency_with_provider_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'State', 'Score', 'Recording']
-connection_for_5_sec_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'State', 'Score', 'Recording']
 contact_center_polqa_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
 dtmf_with_quality_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
 fax_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'State', 'Score', 'Recording']
