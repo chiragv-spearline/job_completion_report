@@ -42,6 +42,10 @@ in_country_pstn_echo_test_with_quality_test_type_id = 36
 international_connection_test_type_id = 76
 international_dial_test_type_id = 19
 international_pstn_echo_test_type_id = 47
+ivr_traversal_test_type_id = 25
+long_call_test_type_id = 12
+speakeasy_failover_service_test_type_id = 30
+two_way_test_type_id = 5
 
 # Numbers for generating campaign job schedule report
 pstn_conf_qual_numbers = {
@@ -90,3 +94,7 @@ dtmf_with_quality_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Numb
 fax_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'State', 'Score', 'Recording']
 international_dial_test_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
 international_pstn_echo_test_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'State', 'Score', 'Recording']
+ivr_traversal_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'State', 'Score', 'Recording']
+long_call_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'State', 'Score', 'Recording']
+speakeasy_failover_service_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
+two_way_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
