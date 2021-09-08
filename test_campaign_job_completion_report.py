@@ -34,7 +34,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_conf_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.conferences_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.conferences_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -45,7 +44,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.conferences_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -102,7 +100,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.connection_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             campaign_number_update_val = (json.dumps(campaign_number_details), campaign_details["data"]["id"])
             campaign_number_update_query = "update campaign SET filter_string = %s WHERE id = %s"
@@ -116,7 +113,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.connection_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -171,7 +167,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.audio_latency_test_type_id, status=1, numbers=campaign_numbers,  report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.audio_latency_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -182,7 +177,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.audio_latency_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -237,7 +231,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_conf_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.single_line_test_type_id, status=1, numbers=campaign_numbers,  report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.single_line_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -248,7 +241,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.single_line_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -305,7 +297,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.in_country_test_type_id, status=1, numbers=campaign_numbers,  report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.in_country_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -316,7 +307,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.in_country_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -373,7 +363,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.agent_connection_test_type_id, status=1, numbers=campaign_numbers,  report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.agent_connection_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -384,7 +373,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.agent_connection_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -442,7 +430,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.sip_quality_uri)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.sip_trunk_test_type_id, status=1, numbers=campaign_numbers,  report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.sip_trunk_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -453,7 +440,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.sip_trunk_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -510,7 +496,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_conf_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.conference_longcall_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.conference_longcall_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -521,7 +506,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.conference_longcall_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -581,7 +565,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_conf_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.conference_with_tones_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.conference_with_tones_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -592,7 +575,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.conference_with_tones_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -649,7 +631,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_conf_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.international_conference_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.international_conference_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -660,7 +641,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.international_conference_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -717,7 +697,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_conf_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.outbound_conference_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.outbound_conference_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -728,7 +707,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.outbound_conference_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -773,7 +751,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_conf_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.linktest_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.linktest_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -784,7 +761,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.linktest_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -842,7 +818,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_conf_qual_numbers)
         provider=rh.get_random_resource(token, "provider")
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.conference_with_provider_test_type_id, status=1, numbers=campaign_numbers, provider=[provider], report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.conference_with_provider_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -853,7 +828,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.conference_with_provider_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -910,7 +884,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_conf_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.conference_with_fixed_ivr_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.conference_with_fixed_ivr_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -921,7 +894,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.conference_with_fixed_ivr_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -978,7 +950,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_conf_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.webex_controlled_ddi_conference_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.webex_controlled_ddi_conference_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -989,7 +960,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.webex_controlled_ddi_conference_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -1047,7 +1017,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         provider = rh.get_random_resource(token, "provider")
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.area_connection_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), provider=[provider], campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             campaign_number_update_val = (json.dumps(campaign_number_details), campaign_details["data"]["id"])
             campaign_number_update_query = "update campaign SET filter_string = %s WHERE id = %s"
@@ -1061,7 +1030,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.area_connection_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             #----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -1117,7 +1085,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         provider = rh.get_random_resource(token, "provider")
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.audio_latency_with_provider_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), provider=[provider], campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             campaign_number_update_val = (json.dumps(campaign_number_details), campaign_details["data"]["id"])
             campaign_number_update_query = "update campaign SET filter_string = %s WHERE id = %s"
@@ -1131,7 +1098,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.audio_latency_with_provider_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             #----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -1186,7 +1152,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.connection_for_5_sec_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             campaign_number_update_val = (json.dumps(campaign_number_details), campaign_details["data"]["id"])
             campaign_number_update_query = "update campaign SET filter_string = %s WHERE id = %s"
@@ -1200,7 +1165,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.connection_for_5_sec_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             #----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -1255,7 +1219,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.contact_center_polqa_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             campaign_number_update_val = (json.dumps(campaign_number_details), campaign_details["data"]["id"])
             campaign_number_update_query = "update campaign SET filter_string = %s WHERE id = %s"
@@ -1269,7 +1232,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.contact_center_polqa_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             #----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -1326,7 +1288,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.contact_center_polqa_single_segment_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             campaign_number_update_val = (json.dumps(campaign_number_details), campaign_details["data"]["id"])
             campaign_number_update_query = "update campaign SET filter_string = %s WHERE id = %s"
@@ -1340,7 +1301,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.contact_center_polqa_single_segment_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             #----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -1397,7 +1357,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.contact_center_google_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             campaign_number_update_val = (json.dumps(campaign_number_details), campaign_details["data"]["id"])
             campaign_number_update_query = "update campaign SET filter_string = %s WHERE id = %s"
@@ -1411,7 +1370,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.contact_center_google_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             #----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -1457,7 +1415,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.dtmf_with_quality_test_type_id, status=1, numbers=campaign_numbers, provider=[provider], report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             campaign_number_update_val = (json.dumps(campaign_number_details), campaign_details["data"]["id"])
             campaign_number_update_query = "update campaign SET filter_string = %s WHERE id = %s"
@@ -1471,7 +1428,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.dtmf_with_quality_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             #----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -1529,7 +1485,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.dtmf_with_quality_different_prompt_test_type_id, status=1, numbers=campaign_numbers, provider=[provider], report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             campaign_number_update_val = (json.dumps(campaign_number_details), campaign_details["data"]["id"])
             campaign_number_update_query = "update campaign SET filter_string = %s WHERE id = %s"
@@ -1543,7 +1498,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.dtmf_with_quality_different_prompt_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             #----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -1601,7 +1555,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.dtmf_with_quality_and_cli_check_test_type_id, status=1, numbers=campaign_numbers, provider=[provider], report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             campaign_number_update_val = (json.dumps(campaign_number_details), campaign_details["data"]["id"])
             campaign_number_update_query = "update campaign SET filter_string = %s WHERE id = %s"
@@ -1615,7 +1568,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.dtmf_with_quality_and_cli_check_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             #----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -1673,7 +1625,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.fax_test_type_id, status=1, numbers=campaign_numbers, provider=[provider], report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             campaign_number_update_val = (json.dumps(campaign_number_details), campaign_details["data"]["id"])
             campaign_number_update_query = "update campaign SET filter_string = %s WHERE id = %s"
@@ -1687,7 +1638,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.fax_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             #----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -1742,7 +1692,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.in_country_outbound_latency_test_type_id, status=1, numbers=campaign_numbers,  report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.in_country_outbound_latency_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -1753,7 +1702,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.in_country_outbound_latency_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -1810,7 +1758,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.in_country_outbound_two_way_voice_assure_test_type_id, status=1, numbers=campaign_numbers,  report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.in_country_outbound_two_way_voice_assure_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -1821,7 +1768,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.in_country_outbound_two_way_voice_assure_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -1879,7 +1825,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.in_country_mobile_test_type_id, status=1, numbers=campaign_numbers,  report_interval_id=1, timezone_id=data.utc_timezone_id, provider=[provider], campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.in_country_mobile_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -1890,7 +1835,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.in_country_mobile_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -1947,7 +1891,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.in_country_pstn_echo_test_with_quality_test_type_id, status=1, numbers=campaign_numbers,  report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             ##----------------- Add Campaign Job entry in Job table -----------------##
             campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.in_country_pstn_echo_test_with_quality_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
@@ -1958,7 +1901,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.in_country_pstn_echo_test_with_quality_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -2015,7 +1957,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
         campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
         campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
         campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.international_connection_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
-        print('================campaign_details::::::::::::> ', campaign_details)
         try:
             campaign_number_update_val = (json.dumps(campaign_number_details), campaign_details["data"]["id"])
             campaign_number_update_query = "update campaign SET filter_string = %s WHERE id = %s"
@@ -2029,7 +1970,6 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             print('-------job_details--------> ', job_details)
             ##----------------- Get Job Processing table according to Test-type -----------------##
             job_processing_table = rh.get_job_processing_table(data.international_connection_test_type_id)
-            print('-------job_processing_table--------> ', job_processing_table)
             ##----------------- Enter Job Processing entries -----------------##
             call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
             call_end_time = call_start_time + timedelta(0,3)
@@ -2076,3 +2016,136 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_international_connection_test_type.priority=1
     test_campaign_job_report_international_connection_test_type.test_area="international_connection_test_type"
+
+    def test_campaign_job_report_international_dial_test_type(self):
+        """ Campaign job completion report with International Dial test-type
+        """
+        ##----------------- Add International Dial test-type campaign -----------------##
+        campaign_name = "test_campaign_"+str(int(time.time()))
+        campaign_report_contact=[data.email_contact]
+        campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
+        campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
+        campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.international_dial_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
+        try:
+            campaign_number_update_val = (json.dumps(campaign_number_details), campaign_details["data"]["id"])
+            campaign_number_update_query = "update campaign SET filter_string = %s WHERE id = %s"
+            rh.execute_db_query(campaign_number_update_query, campaign_number_update_val)
+            ##----------------- Add Campaign Job entry in Job table -----------------##
+            campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.international_dial_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
+            campaign_job_insert_query = "insert into job (company_id, campaign_id, test_type_id, name, start_time, job_filter_string) values (%s, %s, %s, %s, %s ,%s)"
+            rh.execute_db_query(campaign_job_insert_query, campaign_job_insert_val)
+            job_detail_query = "select * from job where campaign_id = %s" % (campaign_details["data"]["id"])
+            job_details = rh.execute_select_db_query(job_detail_query, table_name='job_table')
+            print('-------job_details--------> ', job_details)
+            ##----------------- Get Job Processing table according to Test-type -----------------##
+            job_processing_table = rh.get_job_processing_table(data.international_dial_test_type_id)
+            ##----------------- Enter Job Processing entries -----------------##
+            call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
+            call_end_time = call_start_time + timedelta(0,3)
+            for key in data.pstn_qual_numbers:
+                number = data.pstn_qual_numbers[key]
+                campaign_job_processing_insert_val = (data.international_dial_test_type_id, job_details['id'], number['server_id'], number['id'], number['route_id'], data.cli, data.ivr_spearline_prompt_id, call_start_time, call_start_time, call_end_time, 1, number['desc_id'], call_start_time)
+                campaign_job_processing_insert_query = "insert into " + job_processing_table + " (test_type_id,job_id,server_id,number_id,route_id,cli,ivr_traversal_id,call_start_time,call_connect_time,call_end_time,processing_complete,call_description_id,created_on) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                rh.execute_db_query(campaign_job_processing_insert_query, campaign_job_processing_insert_val)
+            # Generate report for International Dial test-type
+            rh.generate_report(campaign_name, job_details["id"])
+            try:
+                # Fetch newly created campaign job completion report and verify it
+                os.chdir(os.getcwd() + "/csv/")
+                result = glob.glob(campaign_name + '*.csv')
+                print('Newly fetched CSV report file: ', result[0])
+                csv_file_name = result[0]
+                csv_file_path = os.getcwd() + "/" + csv_file_name
+                with open(csv_file_path, 'r') as file:
+                    reader = csv.reader(file)
+                    for count, row in enumerate(reader):
+                        if count==0:
+                            self.assertTrue(row[0] == campaign_name + ' Report', "Mismatch in campaign report title")
+                        elif count==1:
+                            self.assertTrue(row == data.international_dial_test_reports_header, "Mismatch in campaign report headers")
+                        elif count>1:
+                            number_str = str(data.pstn_qual_numbers["number%s" % str(count-1)]['number'])
+                            self.assertTrue(len(row) == len(data.international_dial_test_reports_header), 'Data is not correct')
+                            self.assertTrue(row[1] == number_str, 'Incorrect number found: ' + row[1])
+                            self.assertTrue(row[2] == campaign_name, 'Incorrect campaign name found: ' + row[2])
+                            self.assertTrue(row[3] == data.pstn_qual_numbers["number%s" % str(count-1)]['country'], 'Incorrect country found: ' + row[3])
+                            self.assertTrue(row[4] == data.pstn_qual_numbers["number%s" % str(count-1)]['type'], 'Incorrect number-type found: ' + row[4])
+                            self.assertTrue(row[5] == number_str + '_customer', 'Incorrect customer found: ' + row[5])
+                            self.assertTrue(row[6] == number_str + '_department', 'Incorrect department found: ' + row[6])
+                            self.assertTrue(row[7] == number_str + '_location', 'Incorrect location found: ' + row[7])
+                            self.assertTrue(row[8] == number_str + '_carrier', 'Incorrect carrier found: ' + row[8])
+                            self.assertTrue(row[10] == data.ivr_spearline_prompt, 'Incorrect IVR found: ' + row[10])
+                            self.assertTrue(row[11] == str(call_start_time), 'Incorrect Start Time found: ' + row[11])
+                            self.assertTrue(row[12] == str(call_end_time), 'Incorrect Call End Time found: ' + row[12])
+                            self.assertTrue(row[13] == data.pstn_qual_numbers["number%s" % str(count-1)]['desc_name'], 'Incorrect state found: ' + row[13])
+            finally:
+                os.system('echo %s|sudo -S %s' % (data.sudo_password, 'rm ' + csv_file_name))
+        finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
+            rh.delete_item(token, "campaign", campaign_details["data"]["id"])
+    test_campaign_job_report_international_dial_test_type.priority=1
+    test_campaign_job_report_international_dial_test_type.test_area="international_dial_test_type"
+
+    def test_campaign_job_report_international_pstn_echo_test_type(self):
+        """ Campaign job completion report with International PSTN Echo test test-type
+        """
+        ##----------------- Add International PSTN Echo test test-type campaign -----------------##
+        campaign_name = "test_campaign_"+str(int(time.time()))
+        campaign_report_contact=[data.email_contact]
+        campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
+        campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.pstn_qual_numbers)
+        campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.international_pstn_echo_test_type_id, status=1, numbers=campaign_numbers,  report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
+        try:
+            ##----------------- Add Campaign Job entry in Job table -----------------##
+            campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.international_pstn_echo_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
+            campaign_job_insert_query = "insert into job (company_id, campaign_id, test_type_id, name, start_time, job_filter_string) values (%s, %s, %s, %s, %s ,%s)"
+            rh.execute_db_query(campaign_job_insert_query, campaign_job_insert_val)
+            job_detail_query = "select * from job where campaign_id = %s" % (campaign_details["data"]["id"])
+            job_details = rh.execute_select_db_query(job_detail_query, table_name='job_table')
+            print('-------job_details--------> ', job_details)
+            ##----------------- Get Job Processing table according to Test-type -----------------##
+            job_processing_table = rh.get_job_processing_table(data.international_pstn_echo_test_type_id)
+            ##----------------- Enter Job Processing entries -----------------##
+            call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
+            call_end_time = call_start_time + timedelta(0,3)
+            for key in data.pstn_qual_numbers:
+                number = data.pstn_qual_numbers[key]
+                campaign_job_processing_insert_val = (data.international_pstn_echo_test_type_id, job_details['id'], number['server_id'], number['id'], number['route_id'], data.cli, data.ivr_spearline_prompt_id, call_start_time, call_start_time, call_end_time, 1, number['desc_id'], 1, call_start_time)
+                campaign_job_processing_insert_query = "insert into " + job_processing_table + " (test_type_id,job_id,server_id,number_id,route_id,cli,ivr_traversal_id,call_start_time,call_connect_time,call_end_time,processing_complete,call_description_id,tone_description,created_on) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                rh.execute_db_query(campaign_job_processing_insert_query, campaign_job_processing_insert_val)
+            # Generate report for International PSTN Echo test test-type
+            rh.generate_report(campaign_name, job_details["id"])
+            try:
+                # Fetch newly created campaign job completion report and verify it
+                os.chdir(os.getcwd() + "/csv/")
+                result = glob.glob(campaign_name + '*.csv')
+                print('Newly fetched CSV report file: ', result[0])
+                csv_file_name = result[0]
+                csv_file_path = os.getcwd() + "/" + csv_file_name
+                with open(csv_file_path, 'r') as file:
+                    reader = csv.reader(file)
+                    for count, row in enumerate(reader):
+                        if count==0:
+                            self.assertTrue(row[0] == campaign_name + ' Report', "Mismatch in campaign report title")
+                        elif count==1:
+                            self.assertTrue(row == data.audio_latency_testtype_report_headers, "Mismatch in campaign report headers")
+                        elif count>1:
+                            number_str = str(data.pstn_qual_numbers["number%s" % str(count-1)]['number'])
+                            self.assertTrue(len(row) == len(data.audio_latency_testtype_report_headers), 'Data is not correct')
+                            self.assertTrue(row[1] == number_str, 'Incorrect number found: ' + row[1])
+                            self.assertTrue(row[2] == campaign_name, 'Incorrect campaign name found: ' + row[2])
+                            self.assertTrue(row[3] == data.pstn_qual_numbers["number%s" % str(count-1)]['country'], 'Incorrect country found: ' + row[3])
+                            self.assertTrue(row[4] == data.pstn_qual_numbers["number%s" % str(count-1)]['type'], 'Incorrect number-type found: ' + row[4])
+                            self.assertTrue(row[5] == number_str + '_customer', 'Incorrect customer found: ' + row[5])
+                            self.assertTrue(row[6] == number_str + '_department', 'Incorrect department found: ' + row[6])
+                            self.assertTrue(row[7] == number_str + '_location', 'Incorrect location found: ' + row[7])
+                            self.assertTrue(row[8] == number_str + '_carrier', 'Incorrect carrier found: ' + row[8])
+                            self.assertTrue(row[10] == data.ivr_spearline_prompt, 'Incorrect IVR found: ' + row[10])
+                            self.assertTrue(row[11] == data.pstn_qual_numbers["number%s" % str(count-1)]['desc_name'], 'Incorrect call description found: ' + row[11])
+            finally:
+                os.system('echo %s|sudo -S %s' % (data.sudo_password, 'rm ' + csv_file_name))
+        finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
+            rh.delete_item(token, "campaign", campaign_details["data"]["id"])
+    test_campaign_job_report_international_pstn_echo_test_type.priority=1
+    test_campaign_job_report_international_pstn_echo_test_type.test_area="international_pstn_echo_test_type"

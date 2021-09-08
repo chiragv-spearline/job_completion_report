@@ -63,6 +63,7 @@ def add_campaign(token, name=None, test_type_id=None, status=None,
     number_body=json.dumps(numbers)
     number_url=api_url+"campaign/update_filters/"+str(response["data"]["id"])
     requests.post(number_url, headers=headers, data=number_body)
+    print('================campaign_details::::::::::::> ', response)
     return response
 
 def delete_item(token, resource, item_id):
@@ -177,6 +178,7 @@ def get_job_processing_table(test_type):
     """
     job_processing_table_query = "select distinct job_processing_table from test_type where id = %s" % (test_type)
     table_res = rh.execute_select_db_query(job_processing_table_query)
+    print('-------job_processing_table--------> ', table_res[0])
     return table_res[0]
 
 def generate_report(campaign, job_id):
