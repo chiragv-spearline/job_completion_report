@@ -2128,10 +2128,10 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
                         if count==0:
                             self.assertTrue(row[0] == campaign_name + ' Report', "Mismatch in campaign report title")
                         elif count==1:
-                            self.assertTrue(row == data.audio_latency_testtype_report_headers, "Mismatch in campaign report headers")
+                            self.assertTrue(row == data.international_pstn_echo_test_report_headers, "Mismatch in campaign report headers")
                         elif count>1:
                             number_str = str(data.pstn_qual_numbers["number%s" % str(count-1)]['number'])
-                            self.assertTrue(len(row) == len(data.audio_latency_testtype_report_headers), 'Data is not correct')
+                            self.assertTrue(len(row) == len(data.international_pstn_echo_test_report_headers), 'Data is not correct')
                             self.assertTrue(row[1] == number_str, 'Incorrect number found: ' + row[1])
                             self.assertTrue(row[2] == campaign_name, 'Incorrect campaign name found: ' + row[2])
                             self.assertTrue(row[3] == data.pstn_qual_numbers["number%s" % str(count-1)]['country'], 'Incorrect country found: ' + row[3])
