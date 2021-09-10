@@ -463,10 +463,10 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
                         if count==0:
                             self.assertTrue(row[0] == campaign_name + ' Report', "Mismatch in campaign report title")
                         elif count==1:
-                            self.assertTrue(row == data.sip_trunk_testtype_report_headers, "Mismatch in campaign report headers")
+                            self.assertTrue(row == data.sip_quality_testtype_report_headers, "Mismatch in campaign report headers")
                         elif count>1:
                             uri_str = str(data.sip_quality_uri["uri%s" % str(count-1)]['uri'])
-                            self.assertTrue(len(row) == len(data.sip_trunk_testtype_report_headers), 'Data is not correct')
+                            self.assertTrue(len(row) == len(data.sip_quality_testtype_report_headers), 'Data is not correct')
                             self.assertTrue(row[1] == uri_str, 'Incorrect URI found: ' + row[1])
                             self.assertTrue(row[2] == campaign_name, 'Incorrect campaign name found: ' + row[2])
                             self.assertTrue(row[3] == data.sip_quality_uri["uri%s" % str(count-1)]['country'], 'Incorrect country found: ' + row[3])
@@ -2421,3 +2421,210 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
             rh.delete_item(token, "campaign", campaign_details["data"]["id"])
     test_campaign_job_report_two_way_test_type.priority=1
     test_campaign_job_report_two_way_test_type.test_area="two_way_test_type"
+
+    def test_campaign_job_report_sip_endpoint_test_type(self):
+        """ Campaign job completion report with SIP Endpoint test-type
+        """
+        ##----------------- Add SIP Endpoint test-type campaign -----------------##
+        campaign_name = "test_campaign_"+str(int(time.time()))
+        campaign_report_contact=[data.email_contact]
+        campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
+        campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.sip_quality_uri)
+        campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.sip_endpoint_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
+        try:
+            campaign_number_update_val = (json.dumps(campaign_number_details), campaign_details["data"]["id"])
+            campaign_number_update_query = "update campaign SET filter_string = %s WHERE id = %s"
+            rh.execute_db_query(campaign_number_update_query, campaign_number_update_val)
+            ##----------------- Add Campaign Job entry in Job table -----------------##
+            campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.sip_endpoint_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
+            campaign_job_insert_query = "insert into job (company_id, campaign_id, test_type_id, name, start_time, job_filter_string) values (%s, %s, %s, %s, %s ,%s)"
+            rh.execute_db_query(campaign_job_insert_query, campaign_job_insert_val)
+            job_detail_query = "select * from job where campaign_id = %s" % (campaign_details["data"]["id"])
+            job_details = rh.execute_select_db_query(job_detail_query, table_name='job_table')
+            print('-------job_details--------> ', job_details)
+            ##----------------- Get Job Processing table according to Test-type -----------------##
+            job_processing_table = rh.get_job_processing_table(data.sip_endpoint_test_type_id)
+            ##----------------- Enter Job Processing entries -----------------##
+            call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
+            call_end_time = call_start_time + timedelta(0,3)
+            for key in data.sip_quality_uri:
+                number = data.sip_quality_uri[key]
+                campaign_job_processing_insert_val = (data.sip_endpoint_test_type_id, job_details['id'], number['server_id'], number['id'], data.cli, data.ivr_spearline_prompt_id, call_start_time, call_start_time, call_end_time, 1, number['desc_id'], call_start_time)
+                campaign_job_processing_insert_query = "insert into " + job_processing_table + " (test_type_id,job_id,server_id,number_id,cli,ivr_traversal_id,call_start_time,call_connect_time,call_end_time,processing_complete,call_description_id,created_on) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                rh.execute_db_query(campaign_job_processing_insert_query, campaign_job_processing_insert_val)
+            # Generate report for SIP Endpoint test-type
+            rh.generate_report(campaign_name, job_details["id"])
+            try:
+                # Fetch newly created campaign job completion report and verify it
+                os.chdir(os.getcwd() + "/csv/")
+                result = glob.glob(campaign_name + '*.csv')
+                print('Newly fetched CSV report file: ', result[0])
+                csv_file_name = result[0]
+                csv_file_path = os.getcwd() + "/" + csv_file_name
+                with open(csv_file_path, 'r') as file:
+                    reader = csv.reader(file)
+                    for count, row in enumerate(reader):
+                        if count==0:
+                            self.assertTrue(row[0] == campaign_name + ' Report', "Mismatch in campaign report title")
+                        elif count==1:
+                            self.assertTrue(row == data.sip_quality_testtype_report_headers, "Mismatch in campaign report headers")
+                        elif count>1:
+                            uri_str = str(data.sip_quality_uri["uri%s" % str(count-1)]['uri'])
+                            self.assertTrue(len(row) == len(data.sip_quality_testtype_report_headers), 'Data is not correct')
+                            self.assertTrue(row[1] == uri_str, 'Incorrect URI found: ' + row[1])
+                            self.assertTrue(row[2] == campaign_name, 'Incorrect campaign name found: ' + row[2])
+                            self.assertTrue(row[3] == data.sip_quality_uri["uri%s" % str(count-1)]['country'], 'Incorrect country found: ' + row[3])
+                            self.assertTrue(row[4] == data.sip_quality_uri["uri%s" % str(count-1)]['type'], 'Incorrect uri-type found: ' + row[4])
+                            self.assertTrue(row[5] == uri_str + '_customer', 'Incorrect customer found: ' + row[5])
+                            self.assertTrue(row[6] == uri_str + '_department', 'Incorrect department found: ' + row[6])
+                            self.assertTrue(row[7] == uri_str + '_location', 'Incorrect location found: ' + row[7])
+                            self.assertTrue(row[8] == uri_str + '_carrier', 'Incorrect carrier found: ' + row[8])
+                            self.assertTrue(row[10] == data.ivr_spearline_prompt, 'Incorrect IVR found: ' + row[10])
+                            self.assertTrue(row[11] == str(call_start_time), 'Incorrect Start Time found: ' + row[11])
+                            self.assertTrue(row[12] == str(call_end_time), 'Incorrect Call End Time found: ' + row[12])
+                            self.assertTrue(row[13] == data.sip_quality_uri["uri%s" % str(count-1)]['desc_name'], 'Incorrect call description found: ' + row[13])
+            finally:
+                os.system('echo %s|sudo -S %s' % (data.sudo_password, 'rm ' + csv_file_name))
+        finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
+            rh.delete_item(token, "campaign", campaign_details["data"]["id"])
+    test_campaign_job_report_sip_endpoint_test_type.priority=1
+    test_campaign_job_report_sip_endpoint_test_type.test_area="sip_endpoint_test_type"
+
+    def test_campaign_job_report_sip_call_forward_test_type(self):
+        """ Campaign job completion report with SIP Call Forward test-type
+        """
+        ##----------------- Add SIP Call Forward test-type campaign -----------------##
+        campaign_name = "test_campaign_"+str(int(time.time()))
+        campaign_report_contact=[data.email_contact]
+        campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
+        campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.sip_quality_uri)
+        campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.sip_call_forward_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
+        try:
+            campaign_number_update_val = (json.dumps(campaign_number_details), campaign_details["data"]["id"])
+            campaign_number_update_query = "update campaign SET filter_string = %s WHERE id = %s"
+            rh.execute_db_query(campaign_number_update_query, campaign_number_update_val)
+            ##----------------- Add Campaign Job entry in Job table -----------------##
+            campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.sip_call_forward_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
+            campaign_job_insert_query = "insert into job (company_id, campaign_id, test_type_id, name, start_time, job_filter_string) values (%s, %s, %s, %s, %s ,%s)"
+            rh.execute_db_query(campaign_job_insert_query, campaign_job_insert_val)
+            job_detail_query = "select * from job where campaign_id = %s" % (campaign_details["data"]["id"])
+            job_details = rh.execute_select_db_query(job_detail_query, table_name='job_table')
+            print('-------job_details--------> ', job_details)
+            ##----------------- Get Job Processing table according to Test-type -----------------##
+            job_processing_table = rh.get_job_processing_table(data.sip_call_forward_test_type_id)
+            ##----------------- Enter Job Processing entries -----------------##
+            call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
+            call_end_time = call_start_time + timedelta(0,3)
+            for key in data.sip_quality_uri:
+                number = data.sip_quality_uri[key]
+                campaign_job_processing_insert_val = (data.sip_call_forward_test_type_id, job_details['id'], number['server_id'], number['id'], data.cli, data.ivr_spearline_prompt_id, call_start_time, call_start_time, call_end_time, 1, number['desc_id'], call_start_time)
+                campaign_job_processing_insert_query = "insert into " + job_processing_table + " (test_type_id,job_id,server_id,number_id,cli,ivr_traversal_id,call_start_time,call_connect_time,call_end_time,processing_complete,call_description_id,created_on) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                rh.execute_db_query(campaign_job_processing_insert_query, campaign_job_processing_insert_val)
+            # Generate report for SIP Call Forward test-type
+            rh.generate_report(campaign_name, job_details["id"])
+            try:
+                # Fetch newly created campaign job completion report and verify it
+                os.chdir(os.getcwd() + "/csv/")
+                result = glob.glob(campaign_name + '*.csv')
+                print('Newly fetched CSV report file: ', result[0])
+                csv_file_name = result[0]
+                csv_file_path = os.getcwd() + "/" + csv_file_name
+                with open(csv_file_path, 'r') as file:
+                    reader = csv.reader(file)
+                    for count, row in enumerate(reader):
+                        if count==0:
+                            self.assertTrue(row[0] == campaign_name + ' Report', "Mismatch in campaign report title")
+                        elif count==1:
+                            self.assertTrue(row == data.sip_quality_testtype_report_headers, "Mismatch in campaign report headers")
+                        elif count>1:
+                            uri_str = str(data.sip_quality_uri["uri%s" % str(count-1)]['uri'])
+                            self.assertTrue(len(row) == len(data.sip_quality_testtype_report_headers), 'Data is not correct')
+                            self.assertTrue(row[1] == uri_str, 'Incorrect URI found: ' + row[1])
+                            self.assertTrue(row[2] == campaign_name, 'Incorrect campaign name found: ' + row[2])
+                            self.assertTrue(row[3] == data.sip_quality_uri["uri%s" % str(count-1)]['country'], 'Incorrect country found: ' + row[3])
+                            self.assertTrue(row[4] == data.sip_quality_uri["uri%s" % str(count-1)]['type'], 'Incorrect uri-type found: ' + row[4])
+                            self.assertTrue(row[5] == uri_str + '_customer', 'Incorrect customer found: ' + row[5])
+                            self.assertTrue(row[6] == uri_str + '_department', 'Incorrect department found: ' + row[6])
+                            self.assertTrue(row[7] == uri_str + '_location', 'Incorrect location found: ' + row[7])
+                            self.assertTrue(row[8] == uri_str + '_carrier', 'Incorrect carrier found: ' + row[8])
+                            self.assertTrue(row[10] == data.ivr_spearline_prompt, 'Incorrect IVR found: ' + row[10])
+                            self.assertTrue(row[11] == str(call_start_time), 'Incorrect Start Time found: ' + row[11])
+                            self.assertTrue(row[12] == str(call_end_time), 'Incorrect Call End Time found: ' + row[12])
+                            self.assertTrue(row[13] == data.sip_quality_uri["uri%s" % str(count-1)]['desc_name'], 'Incorrect call description found: ' + row[13])
+            finally:
+                os.system('echo %s|sudo -S %s' % (data.sudo_password, 'rm ' + csv_file_name))
+        finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
+            rh.delete_item(token, "campaign", campaign_details["data"]["id"])
+    test_campaign_job_report_sip_call_forward_test_type.priority=1
+    test_campaign_job_report_sip_call_forward_test_type.test_area="sip_call_forward_test_type"
+
+    def test_campaign_job_report_sip_uri_with_options_test_type(self):
+        """ Campaign job completion report with SIP URI with options test-type
+        """
+        ##----------------- Add SIP URI with options test-type campaign -----------------##
+        campaign_name = "test_campaign_"+str(int(time.time()))
+        campaign_report_contact=[data.email_contact]
+        campaign_once_off_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M") + ":00"
+        campaign_numbers, campaign_number_details = rh.get_campaign_numbers_info(data.sip_quality_uri)
+        campaign_details = rh.add_campaign(token, name=campaign_name, test_type_id=data.sip_uri_with_options_test_type_id, status=1, numbers=campaign_numbers, report_interval_id=1, timezone_id=data.utc_timezone_id, campaign_once_off=str(campaign_once_off_time), campaign_report_contact_flag=True, campaign_report_contact=campaign_report_contact)
+        try:
+            campaign_number_update_val = (json.dumps(campaign_number_details), campaign_details["data"]["id"])
+            campaign_number_update_query = "update campaign SET filter_string = %s WHERE id = %s"
+            rh.execute_db_query(campaign_number_update_query, campaign_number_update_val)
+            ##----------------- Add Campaign Job entry in Job table -----------------##
+            campaign_job_insert_val = (data.company_id, campaign_details["data"]["id"], data.sip_uri_with_options_test_type_id, campaign_name, campaign_once_off_time, json.dumps(campaign_number_details))
+            campaign_job_insert_query = "insert into job (company_id, campaign_id, test_type_id, name, start_time, job_filter_string) values (%s, %s, %s, %s, %s ,%s)"
+            rh.execute_db_query(campaign_job_insert_query, campaign_job_insert_val)
+            job_detail_query = "select * from job where campaign_id = %s" % (campaign_details["data"]["id"])
+            job_details = rh.execute_select_db_query(job_detail_query, table_name='job_table')
+            print('-------job_details--------> ', job_details)
+            ##----------------- Get Job Processing table according to Test-type -----------------##
+            job_processing_table = rh.get_job_processing_table(data.sip_uri_with_options_test_type_id)
+            ##----------------- Enter Job Processing entries -----------------##
+            call_start_time = datetime.datetime.strptime(campaign_once_off_time,'%Y-%m-%d %H:%M:%S')
+            call_end_time = call_start_time + timedelta(0,3)
+            for key in data.sip_quality_uri:
+                number = data.sip_quality_uri[key]
+                campaign_job_processing_insert_val = (data.sip_uri_with_options_test_type_id, job_details['id'], number['server_id'], number['id'], data.cli, data.ivr_spearline_prompt_id, call_start_time, call_start_time, call_end_time, 1, number['desc_id'], call_start_time)
+                campaign_job_processing_insert_query = "insert into " + job_processing_table + " (test_type_id,job_id,server_id,number_id,cli,ivr_traversal_id,call_start_time,call_connect_time,call_end_time,processing_complete,call_description_id,created_on) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                rh.execute_db_query(campaign_job_processing_insert_query, campaign_job_processing_insert_val)
+            # Generate report for SIP URI with options test-type
+            rh.generate_report(campaign_name, job_details["id"])
+            try:
+                # Fetch newly created campaign job completion report and verify it
+                os.chdir(os.getcwd() + "/csv/")
+                result = glob.glob(campaign_name + '*.csv')
+                print('Newly fetched CSV report file: ', result[0])
+                csv_file_name = result[0]
+                csv_file_path = os.getcwd() + "/" + csv_file_name
+                with open(csv_file_path, 'r') as file:
+                    reader = csv.reader(file)
+                    for count, row in enumerate(reader):
+                        if count==0:
+                            self.assertTrue(row[0] == campaign_name + ' Report', "Mismatch in campaign report title")
+                        elif count==1:
+                            self.assertTrue(row == data.sip_quality_testtype_report_headers, "Mismatch in campaign report headers")
+                        elif count>1:
+                            uri_str = str(data.sip_quality_uri["uri%s" % str(count-1)]['uri'])
+                            self.assertTrue(len(row) == len(data.sip_quality_testtype_report_headers), 'Data is not correct')
+                            self.assertTrue(row[1] == uri_str, 'Incorrect URI found: ' + row[1])
+                            self.assertTrue(row[2] == campaign_name, 'Incorrect campaign name found: ' + row[2])
+                            self.assertTrue(row[3] == data.sip_quality_uri["uri%s" % str(count-1)]['country'], 'Incorrect country found: ' + row[3])
+                            self.assertTrue(row[4] == data.sip_quality_uri["uri%s" % str(count-1)]['type'], 'Incorrect uri-type found: ' + row[4])
+                            self.assertTrue(row[5] == uri_str + '_customer', 'Incorrect customer found: ' + row[5])
+                            self.assertTrue(row[6] == uri_str + '_department', 'Incorrect department found: ' + row[6])
+                            self.assertTrue(row[7] == uri_str + '_location', 'Incorrect location found: ' + row[7])
+                            self.assertTrue(row[8] == uri_str + '_carrier', 'Incorrect carrier found: ' + row[8])
+                            self.assertTrue(row[10] == data.ivr_spearline_prompt, 'Incorrect IVR found: ' + row[10])
+                            self.assertTrue(row[11] == str(call_start_time), 'Incorrect Start Time found: ' + row[11])
+                            self.assertTrue(row[12] == str(call_end_time), 'Incorrect Call End Time found: ' + row[12])
+                            self.assertTrue(row[13] == data.sip_quality_uri["uri%s" % str(count-1)]['desc_name'], 'Incorrect call description found: ' + row[13])
+            finally:
+                os.system('echo %s|sudo -S %s' % (data.sudo_password, 'rm ' + csv_file_name))
+        finally:
+            rh.delete_job_processing_data(job_details['id'], job_processing_table)
+            rh.delete_item(token, "campaign", campaign_details["data"]["id"])
+    test_campaign_job_report_sip_uri_with_options_test_type.priority=1
+    test_campaign_job_report_sip_uri_with_options_test_type.test_area="sip_uri_with_options_test_type"

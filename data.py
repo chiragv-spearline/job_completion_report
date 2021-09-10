@@ -46,6 +46,9 @@ ivr_traversal_test_type_id = 25
 long_call_test_type_id = 12
 speakeasy_failover_service_test_type_id = 30
 two_way_test_type_id = 5
+sip_endpoint_test_type_id = 21
+sip_call_forward_test_type_id = 22
+sip_uri_with_options_test_type_id = 64
 
 # Numbers for generating campaign job schedule report
 pstn_conf_qual_numbers = {
@@ -79,7 +82,7 @@ audio_latency_testtype_report_headers = ['ID', 'Number', 'Campaign', 'Country', 
 single_line_testtype_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
 in_country_testtype_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
 agent_connection_testtype_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Received DTMF', 'Agent Confirmation Time', 'State', 'Score', 'Recording']
-sip_trunk_testtype_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
+sip_quality_testtype_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
 conference_longcall_testtype_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording', 'Phonegroup', 'Region', 'Moderator Passcode', 'Participant Passcode', 'Bridge']
 conference_with_tones_testtype_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording', 'Number', 'Country', 'Start Time', 'Connect Time', 'DDI End Time']
 international_conference_testtype_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording', 'Number', 'Country', 'Start Time', 'Connect Time', 'DDI End Time']
