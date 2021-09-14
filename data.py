@@ -49,6 +49,7 @@ two_way_test_type_id = 5
 sip_endpoint_test_type_id = 21
 sip_call_forward_test_type_id = 22
 sip_uri_with_options_test_type_id = 64
+sip_conference_test_type_id = 20
 
 # Numbers for generating campaign job schedule report
 pstn_conf_qual_numbers = {
@@ -73,6 +74,14 @@ sip_quality_uri = {
     'uri3': { 'id': 1057967, 'uri': 134354563437, 'country': 'Australia', 'desc_name': 'Connected', 'route_id': 5, 'desc_id': 14, 'server_id': 2, 'type': 'SIP' },
     'uri4': { 'id': 1057968, 'uri': 134354563438, 'country': 'Spain', 'desc_name': 'Successful', 'route_id': 90, 'desc_id': 88, 'server_id': 46, 'type': 'SIP' },
     'uri5': { 'id': 1057969, 'uri': 134354563439, 'country': 'Canada', 'desc_name': 'No Answer', 'route_id': 41, 'desc_id': 7, 'server_id': 141, 'type': 'SIP' }
+}
+
+sip_conf_quality_uri = {
+    'uri1': { 'id': 1085577, 'uri': 2343232432, 'country': 'Ireland', 'desc_name': 'Agent', 'route_id': 174, 'desc_id': 89, 'server_id': 78, 'type': 'SIP', 'phonegroup_id': 1026366 },
+    'uri2': { 'id': 1085578, 'uri': 2343232433, 'country': 'India', 'desc_name': 'Busy', 'route_id': 158, 'desc_id': 3, 'server_id': 141, 'type': 'SIP', 'phonegroup_id': 1026367 },
+    'uri3': { 'id': 1085579, 'uri': 2343232434, 'country': 'United States', 'desc_name': 'Connected', 'route_id': 5, 'desc_id': 14, 'server_id': 2, 'type': 'SIP', 'phonegroup_id': 1026368 },
+    'uri4': { 'id': 1085580, 'uri': 2343232435, 'country': 'Argentina', 'desc_name': 'Successful', 'route_id': 90, 'desc_id': 88, 'server_id': 46, 'type': 'SIP', 'phonegroup_id': 1026369 },
+    'uri5': { 'id': 1085581, 'uri': 2343232436, 'country': 'Ireland', 'desc_name': 'No Answer', 'route_id': 41, 'desc_id': 7, 'server_id': 141, 'type': 'SIP', 'phonegroup_id': 1026370 }
 }
 
 # Campaign Report Headers
@@ -101,3 +110,4 @@ ivr_traversal_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number T
 long_call_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'State', 'Score', 'Recording']
 speakeasy_failover_service_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
 two_way_reports_header = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
+sip_conf_quality_testtype_report_headers = ['ID', 'Number', 'Campaign', 'Country', 'Number Type', 'Customer', 'Department', 'Location', 'Carrier', 'CLI', 'IVR Traversal', 'Call Start Time', 'Call End Time', 'State', 'Score', 'Recording']
