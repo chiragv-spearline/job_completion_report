@@ -1657,16 +1657,18 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
                         if count==0:
                             self.assertTrue(row[0] == campaign_name + ' Report', "Mismatch in campaign report title")
                         elif count==1:
-                            self.assertTrue(row == data.connection_testtype_report_headers, "Mismatch in campaign report headers")
+                            self.assertTrue(row == data.in_country_testtype_report_headers, "Mismatch in campaign report headers")
                         elif count>1:
                             number_str = str(pstn_qual_numbers["number%s" % str(count-1)]['number'])
-                            self.assertTrue(len(row) == len(data.connection_testtype_report_headers), 'Data is not correct')
+                            self.assertTrue(len(row) == len(data.in_country_testtype_report_headers), 'Data is not correct')
                             self.assertTrue(row[1] == number_str, 'Incorrect number found: ' + row[1])
                             self.assertTrue(row[2] == campaign_name, 'Incorrect campaign name found: ' + row[2])
                             self.assertTrue(row[3] == pstn_qual_numbers["number%s" % str(count-1)]['country'], 'Incorrect country found: ' + row[3])
                             self.assertTrue(row[4] == pstn_qual_numbers["number%s" % str(count-1)]['number_type'], 'Incorrect number-type found: ' + row[4])
                             self.assertTrue(row[10] == data.ivr_spearline_prompt, 'Incorrect IVR found: ' + row[10])
-                            self.assertTrue(row[11] == pstn_qual_numbers["number%s" % str(count-1)]['desc_name'], 'Incorrect state found: ' + row[11])
+                            self.assertTrue(row[11] == str(call_start_time), 'Incorrect Start Time found: ' + row[11])
+                            self.assertTrue(row[12] == str(call_end_time), 'Incorrect Call End Time found: ' + row[12])
+                            self.assertTrue(row[13] == pstn_qual_numbers["number%s" % str(count-1)]['desc_name'], 'Incorrect state found: ' + row[13])
             finally:
                os.system('echo %s|sudo -S %s' % (data.sudo_password, 'rm ' + csv_file_name))
         finally:
