@@ -4,11 +4,11 @@ import yaml
 import json
 import requests
 import random
-import mysql.connector
+import pymysql
 import data as data
 import report_helper_functions as rh
 
-with open("config.yml", 'r') as ymlfile:
+with open(os.getcwd() + "/job_completion_report/config.yml", 'r') as ymlfile:
     cfg = yaml.load(ymlfile, Loader=yaml.BaseLoader)
 
 # global token, protocol, server, email, password, api_path, api_url
@@ -80,7 +80,7 @@ def delete_job_processing_data(job_id, job_processing_table):
     """
     job_delete_query = "delete from job where id=" + str(job_id)
     job_processing_delete_query = "delete from "+ job_processing_table +" where job_id=" + str(job_id)
-    database = mysql.connector.connect(host=cfg["qa_database"]["db_host"],
+    database = pymysql.connect(host=cfg["qa_database"]["db_host"],
     user=cfg["qa_database"]["db_user"], password=cfg["qa_database"]["db_pass"], database=cfg["qa_database"]["database"])
     cursorObject = database.cursor()
     cursorObject.execute(job_processing_delete_query)
@@ -92,7 +92,7 @@ def delete_job_processing_data(job_id, job_processing_table):
 def execute_db_query(query, val):
     """ Execute insert, update query to database
     """
-    database = mysql.connector.connect(host=cfg["qa_database"]["db_host"],
+    database = pymysql.connect(host=cfg["qa_database"]["db_host"],
     user=cfg["qa_database"]["db_user"], password=cfg["qa_database"]["db_pass"], database=cfg["qa_database"]["database"])
     cursorObject = database.cursor()
     cursorObject.execute(query, val)
@@ -103,7 +103,7 @@ def execute_db_query(query, val):
 def execute_select_db_query(query, table_name=None):
     """ Execute select query to database and return
     """
-    database = mysql.connector.connect(host=cfg["qa_database"]["db_host"],
+    database = pymysql.connect(host=cfg["qa_database"]["db_host"],
     user=cfg["qa_database"]["db_user"], password=cfg["qa_database"]["db_pass"], database=cfg["qa_database"]["database"])
     cursorObject = database.cursor()
     cursorObject.execute(query)
@@ -137,17 +137,17 @@ def get_campaign_numbers_info(number):
     """ Prepare campaign number data in specific format 
     """
     campaign_numbers = []
-    campaign_number_details = []
+    filter_str_list = []
     for key in number:
-        number1 = {}
-        number1["number_id"] = str(number[key]["id"])
-        campaign_numbers.append(number1)
-        number2 = {}
-        number2["field"] = "number_id"
-        number2["operator"] = "="
-        number2["value"] = str(number[key]["id"])
-        campaign_number_details.append(number2)
-    return campaign_numbers, campaign_number_details
+        number_id = {}
+        number_id["number_id"] = str(number[key]["id"])
+        campaign_numbers.append(number_id)
+        filter_str = {}
+        filter_str["field"] = "number_id"
+        filter_str["operator"] = "="
+        filter_str["value"] = str(number[key]["id"])
+        filter_str_list.append(filter_str)
+    return campaign_numbers, filter_str_list
 
 def get_random_resource(token, resource):
     """Get a random item id for a specific resource.
@@ -193,6 +193,164 @@ def generate_report(campaign, job_id):
         os.system('echo %s|sudo -S %s' % (data.sudo_password, file_remove_command))
     # Execute job_report docker container to create job completion report
     os.chdir(os.getcwd() + "/../")
-    docker_cmd = 'docker run --rm  -v ' + os.getcwd() + '/csv:/csv:Z --env-file=spearline-env.txt campaign_job_completion python job_report.py qatest ' + str(job_id)
+    docker_cmd = 'docker run --rm  -v ' + os.getcwd() + '/csv:/app/csv:Z --env-file=' + os.getcwd() + '/spearline-env.txt campaign_job_completion python job_report.py qatest ' + str(job_id)
     print(docker_cmd)
     os.system(docker_cmd)
+
+def add_number(token,
+               debug=False,
+               number=None,
+               application_id=None,
+               number_type_id=None,
+               country_code_id=None,
+               ivr_traversal_id=None,
+               carrier_id=None,
+               location_id=None,
+               customer_id=None,
+               department_id=None,
+               tag=None,
+               phonegroup_id=None,
+               region_id=None,
+               subregion_id=None,
+               bridge_id=None,
+               time_matrix_id=None,
+               time_constraints_id=None,
+               timezone_id=None,
+               test_type_id=None,
+               status_id=None):
+    """Add a specified number to the system, some parameters are mandatory and should always be provided.
+    This function can still be called without providing them but the api call will fail without them.
+    """
+    body_dict={}
+    if number:
+        body_dict["number"]=number
+    if application_id:
+        if (application_id==1 or application_id==11):
+            body_dict["number_for_conference"]={}
+        body_dict["application_id"]=application_id
+    if number_type_id:
+        body_dict["number_type_id"]=number_type_id
+    if country_code_id:
+        body_dict["country_code_id"]=country_code_id
+    if ivr_traversal_id:
+        body_dict["ivr_traversal_id"]=ivr_traversal_id
+    if carrier_id:
+        body_dict["carrier_id"]=carrier_id
+    if location_id:
+        body_dict["location_id"]=location_id
+    if customer_id:
+        body_dict["customer_id"]=customer_id
+    if department_id:
+        body_dict["department_id"]=department_id
+    if tag:
+        body_dict["tag"]=tag
+    if phonegroup_id:
+        body_dict["number_for_conference"]["phonegroup_id"]=phonegroup_id
+    if region_id:
+        body_dict["number_for_conference"]["region_id"]=region_id
+    if subregion_id:
+        body_dict["number_for_conference"]["subregion_id"]=subregion_id
+    if bridge_id:
+        body_dict["number_for_conference"]["bridge_id"]=bridge_id
+    if time_matrix_id:
+        body_dict["schedule"]={"interval_id":time_matrix_id,
+                               "campaign_time_group_id":time_constraints_id,
+                               "timezone_id":timezone_id,
+                               "test_type_id":test_type_id,
+                               "status":status_id}
+
+    body=json.dumps(body_dict)
+    headers = {'Accept': 'application/json',  'Content-Type': 'application/json', 'Authorization': 'Bearer '+token}
+    url=api_url+"number"
+
+    r = requests.post(url, headers=headers, data=body)
+
+    if debug:
+        print ("add_number headers: {}".format(headers))
+        print ("add_number body: {}".format(body))
+        print ("add_number url : {}".format(url))
+        print(r.text)
+
+    response=json.loads(r.text)
+    return response
+
+def get_individual_resource(token, resource, list_index=0):
+    """Get an individual item id for a specific resource.
+    By default it will return the id of the first item in the list.
+    """
+    resources=list_resource(token, resource)
+    return resources["data"][list_index]["id"]
+
+def list_resource(token, resource, item_id=None, debug=False):
+    """Query the api for the selected resource.
+    If no item_id is specified it will return all items for that resource.
+    """
+    headers = {'Accept': 'application/json', 'Authorization': 'Bearer '+token}
+    if item_id is not None:
+        url=api_url+resource+'/'+str(item_id)
+    else:
+        url=api_url+resource
+
+    r = requests.get(url, headers=headers)
+
+    if debug:
+        print ("list_resource url: {}".format(url))
+        print ("list_resource headers: {}".format(headers))
+        print (r.text)
+
+    response=json.loads(r.text)
+    return response
+
+def get_country_id(cursor):
+    sql="SELECT id, country_code_id FROM server where status=1 ORDER BY RAND()"
+    try:
+        cursor.execute(sql)
+        result=cursor.fetchone()
+        return result
+    except Exception as e:
+        print(e)
+
+def get_test_type(cursor, id):
+    sql="SELECT test_type FROM test_type where id={}".format(id)
+    try:
+        cursor.execute(sql)
+        result=cursor.fetchone()
+        return result[0]
+    except Exception as e:
+        print(e)
+
+def get_country_name(cursor, id):
+    sql="SELECT country_name FROM country_code where id={}".format(id)
+    try:
+        cursor.execute(sql)
+        id=cursor.fetchone()
+        return id[0]
+    except Exception as e:
+        print(e)
+
+def get_route_id(cursor, country_id, number_type):
+    sql="SELECT id FROM route where country_code_id={} AND number_type_id={}".format(country_id, number_type)
+    try:
+        cursor.execute(sql)
+        id=cursor.fetchone()
+        return id[0]
+    except Exception as e:
+        print(e)
+
+def get_description_id(cursor):
+    sql="SELECT id, description FROM call_description where status=1 ORDER BY RAND()"
+    try:
+        cursor.execute(sql)
+        result=cursor.fetchone()
+        return result
+    except Exception as e:
+        print(e)
+
+def get_number_type(cursor, number_type_id):
+    sql="SELECT number_type FROM number_type where id={}".format(number_type_id)
+    try:
+        cursor.execute(sql)
+        result=cursor.fetchone()
+        return result[0]
+    except Exception as e:
+        print(e)
