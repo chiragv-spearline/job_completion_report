@@ -1522,7 +1522,7 @@ class test_campaign_job_completion_report_verification(unittest.TestCase):
                 number = pstn_qual_numbers[key]
                 campaign_job_processing_insert_val = (data.fax_test_type_id, job_details['id'], number['server_id'], number['id'], number['route_id'], data.cli, data.ivr_spearline_prompt_id, call_start_time, call_start_time, call_end_time, 1, number['desc_id'], call_start_time)
                 campaign_job_processing_insert_query = "insert into " + job_processing_table + " (test_type_id,job_id,server_id,number_id,route_id,cli,ivr_traversal_id,call_start_time,call_connect_time,call_end_time,processing_complete,call_description_id,created_on) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            rh.execute_db_query(campaign_job_processing_insert_query, campaign_job_processing_insert_val)
+                rh.execute_db_query(campaign_job_processing_insert_query, campaign_job_processing_insert_val)
             # Generate report for Fax test-type
             rh.generate_report(campaign_name, job_details["id"])
             try:
